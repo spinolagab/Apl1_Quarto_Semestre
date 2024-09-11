@@ -5,14 +5,14 @@
 
 public class BinaryNode {
 	// valor ("chave" do nó) 
-	private String key;
+	protected String key;
 	
 	// referência para o nó do pai
-	private BinaryNode parent;
+	protected BinaryNode parent;
 	
 	// referências para filho da esquerda e filho da direita
-	private BinaryNode left;
-	private BinaryNode right;
+	protected BinaryNode left;
+	protected BinaryNode right;
 	
 	
 	// Construtores
@@ -113,11 +113,16 @@ public class BinaryNode {
 	
 	public void setRight(BinaryNode right) {
 		this.right = right;
+		right.setParent(this);
 	}
 	
 	public void setLeft(BinaryNode left) {
 		this.left = left;
+		left.setParent(this);
+
 	}
 	
-	
+	public float visit(){
+		return Float.NaN;
+	}
 }
