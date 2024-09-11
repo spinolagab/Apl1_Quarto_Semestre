@@ -6,6 +6,18 @@
 public class BinaryTree {
 	private BinaryNode root;
 	
+	
+	// Construtores
+	public BinaryTree() {
+		this.root = null;
+	}
+	
+	public BinaryTree(BinaryNode root) {
+		this.root = root;
+	}
+	
+	
+	
 	public BinaryNode getRoot() {
 		return root;
 	}

@@ -113,11 +113,26 @@ public class BinaryNode {
 	
 	public void setRight(BinaryNode right) {
 		this.right = right;
+		
+		if (this.right != null) {
+			this.right.setParent(this);
+		}
 	}
 	
 	public void setLeft(BinaryNode left) {
 		this.left = left;
+		
+		if (this.left != null) {
+			this.left.setParent(this);
+		}
 	}
 	
+	// TODO: Função para visitar os valores
+	/*public <T> visitNode() {
+		this.left.visitNode();
+		//parametro para o nó pai
+		this.right.visitNode();
+	}
+	*/
 	
 }
