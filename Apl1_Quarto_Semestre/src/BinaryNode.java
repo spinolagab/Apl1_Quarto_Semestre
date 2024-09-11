@@ -113,16 +113,29 @@ public class BinaryNode {
 	
 	public void setRight(BinaryNode right) {
 		this.right = right;
-		right.setParent(this);
+		
+		if (this.right != null) {
+			this.right.setParent(this);
+		}
 	}
 	
 	public void setLeft(BinaryNode left) {
 		this.left = left;
-		left.setParent(this);
-
+		
+		if (this.left != null) {
+			this.left.setParent(this);
+		}
 	}
 	
 	public float visit(){
 		return Float.NaN;
 	}
+	// TODO: Função para visitar os valores
+	/*public <T> visitNode() {
+		this.left.visitNode();
+		//parametro para o nó pai
+		this.right.visitNode();
+	}
+	*/
+	
 }
