@@ -68,8 +68,7 @@ public class main {
     	  
         case "4":
     	  //TODO: dados da função 4
-    	  break;
-    	  
+        	break;
     	  
         case "5":
           System.out.println("Saindo...");

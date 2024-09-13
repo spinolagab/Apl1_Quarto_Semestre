@@ -5,14 +5,14 @@
 
 public class BinaryNode {
 	// valor ("chave" do nó) 
-	private String key;
+	protected String key;
 	
 	// referência para o nó do pai
-	private BinaryNode parent;
+	protected BinaryNode parent;
 	
 	// referências para filho da esquerda e filho da direita
-	private BinaryNode left;
-	private BinaryNode right;
+	protected BinaryNode left;
+	protected BinaryNode right;
 	
 	
 	// Construtores
@@ -127,6 +127,9 @@ public class BinaryNode {
 		}
 	}
 	
+	public float visit(){
+		return Float.NaN;
+	}
 	// TODO: Função para visitar os valores
 	/*public <T> visitNode() {
 		this.left.visitNode();
