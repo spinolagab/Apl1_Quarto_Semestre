@@ -51,6 +51,7 @@ public class main {
           break;
           
         case "2":
+          //TODO: dados da função 2
         	break;
         	
         case "3":
