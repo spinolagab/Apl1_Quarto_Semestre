@@ -52,7 +52,7 @@ public class BinaryTree {
 	private void inOrderTraversal(BinaryNode root) {
 		if (root != null) {
 			inOrderTraversal(root.getLeft());
-			System.out.println(root.getKey());
+			System.out.print(root.getKey() + "  ");
 			inOrderTraversal(root.getRight());
 		}
 	}
@@ -62,9 +62,13 @@ public class BinaryTree {
 	}
 
 	private void preOrderTraversal(BinaryNode root) {
-		System.out.println(root.getKey());
-		inOrderTraversal(root.getLeft());
-		inOrderTraversal(root.getRight());
+		if(root != null) {
+		
+			System.out.print(root.getKey() + "  ");
+			preOrderTraversal(root.getLeft());
+			preOrderTraversal(root.getRight());
+		
+		}
 	}
 
 	public void postOrderTraversal() {
@@ -72,9 +76,13 @@ public class BinaryTree {
 	}
 
 	private void postOrderTraversal(BinaryNode root) {
-		inOrderTraversal(root.getLeft());
-		inOrderTraversal(root.getRight());
-		System.out.println(root.getKey());
+		if(root != null) {
+			
+			postOrderTraversal(root.getLeft());
+			postOrderTraversal(root.getRight());
+			System.out.print(root.getKey() + "  ");
+			
+		}
 	}
 
 	private int precedence(char operator) {
