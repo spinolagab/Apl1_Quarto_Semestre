@@ -1,11 +1,24 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
-
+import java.util.Stack;
 
 public class main {
 
   public static boolean isOperator(char c){
       return c == '+' || c == '-' || c == '*' || c == '/';
+  }
+  private static boolean ParenthesisValidator(String input){
+    Stack<Character> stack = new Stack<>();
+    for (char c : input.toCharArray()){
+      if (c == '('){
+        stack.push(c);
+      } else if (c == ')' ) {
+        if (stack.isEmpty() || stack.pop() != '(')
+          return false;
+      }
+    }
+
+    return stack.isEmpty();
   }
 
   public static void main(String[] args) {
@@ -39,6 +52,10 @@ public class main {
               throw new Exception("Entrada inválida. Expressão infixa não pode estar vazia.");
             
 
+            // Validar paridade de parênteses
+            if (ParenthesisValidator(input) == false)
+              throw new InputMismatchException("Entrada inválida. Há parênteses errados.");
+            
             for (int i = 0; i < input.length(); i++) {
               char aux = input.charAt(i);
               char next = (i + 1 < input.length()) ? input.charAt(i + 1) : '\0';
@@ -51,7 +68,7 @@ public class main {
                 throw new InputMismatchException("Entrada inválida. Expressão não pode terminar com um operador.");
               
               // Permite apenas, operadores matemáticos básicos, números e parênteses.
-              if (!String.valueOf(aux).matches("[.()-+*/\\d+]")) 
+              if (!String.valueOf(aux).matches("[.\\(\\)-+*/\\d+]")) 
                 throw new InputMismatchException("Entrada inválida. Somente números e operadores (+, -, *, /) são aceitos. Use ponto para casa decimais.");
               
               // Verifica se há dois operadores em sequência.
@@ -60,11 +77,15 @@ public class main {
               
               // Verifica se há um operador entre um número e uma abertura de parênteses 
               if (String.valueOf(aux).matches("\\d+") && next == '(' )
-                throw new IllegalArgumentException("Entrada inválida. Deve existir um operador entre números e parênteses de abertura.");
+                  throw new IllegalArgumentException("Entrada inválida. Deve existir um operador entre números e parênteses de abertura.");
 
               // Verififca se há um operador entre o fechamento de um parênteses e um número
-              if (String.valueOf(aux).matches("(") && String.valueOf(next).matches("[0-9]"))
+              if (String.valueOf(aux).matches("\\)") && String.valueOf(next).matches("\\d+"))
                 throw new IllegalArgumentException("Entrada inválida. Deve existir um operador entre fechamento de parênteses e um número");
+
+              // Verifica se há parênteses vazio.
+              if (aux == '(' && next == ')')
+                throw new IllegalArgumentException("Entrada inválida. Parênteses vazio.");
               
             }
             System.out.println("Expressão infixa aceita.");

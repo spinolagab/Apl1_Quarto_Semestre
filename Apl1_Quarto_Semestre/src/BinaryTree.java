@@ -117,7 +117,7 @@ public class BinaryTree {
 			if (Character.isDigit(current)) {
 				StringBuilder operand = new StringBuilder();
 				
-				// Coleta o número. 1.2+1.8
+				// Coleta o número. 
 				hasDecimal = false;
 				while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')){
 					if (expression.charAt(i) == '.'){
