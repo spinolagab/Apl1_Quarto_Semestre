@@ -68,14 +68,17 @@ public class main {
           break;
 
         case "3":
+          
           if (Arvore.isEmpty()) {
             System.out.println("A árvore ainda não foi criada ou está vazia!");
           } else {
             System.out.println("Pré ordem: ");
             Arvore.preOrderTraversal();
-            System.out.println("Em ordem: ");
+            
+            System.out.println("\n Em ordem: ");
             Arvore.inOrderTraversal();
-            System.out.println("Pós ordem: ");
+            
+            System.out.println("\nPós ordem: ");
             Arvore.postOrderTraversal();
           }
           break;
