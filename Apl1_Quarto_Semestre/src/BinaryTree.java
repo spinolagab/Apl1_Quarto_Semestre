@@ -1,9 +1,10 @@
 /*
- Gabriel Alves de Freitas Spinola Sucupira - 10418133
- Enzo Benedetto Proença - 10418579
+ * Gabriel Alves de Freitas Spinola Sucupira - 10418133
+ * Enzo Benedetto Proença - 10418579
  */
 
 import java.util.Stack;
+import java.util.InputMismatchException;
 
 public class BinaryTree {
 	private BinaryNode root;
@@ -97,8 +98,8 @@ public class BinaryTree {
 		return -1;
 	}
 
-	private BinaryNode createSubTree(char operator, BinaryNode right, BinaryNode left) {
-		BinaryNode node = new BinaryNode();
+	private operatorNode createSubTree(char operator, BinaryNode right, BinaryNode left) {
+		operatorNode node = new operatorNode();
 		node.setKey(String.valueOf(operator));
 		node.setLeft(left);
 		node.setRight(right);
@@ -108,19 +109,29 @@ public class BinaryTree {
 	public BinaryNode buildTree(String expression) {
 		Stack<BinaryNode> nodes = new Stack<>();
 		Stack<Character> operators = new Stack<>();
-
+		boolean hasDecimal;
 		for (int i = 0; i < expression.length(); i++) {
 			char current = expression.charAt(i);
 
 			// Caso seja operando
 			if (Character.isDigit(current)) {
 				StringBuilder operand = new StringBuilder();
+				
+				// Coleta o número. 1.2+1.8
+				hasDecimal = false;
+				while (i < expression.length() && (Character.isDigit(expression.charAt(i)) || expression.charAt(i) == '.')){
+					if (expression.charAt(i) == '.'){
+						if (hasDecimal)
+							throw new InputMismatchException("Entrada inválida. Um número não pode ter dois marcadores de decimal");
 
-				while (i < expression.length() && Character.isDigit(expression.charAt(i)))
+						hasDecimal = true;
+					}
+
 					operand.append(expression.charAt(i++));
+				}
 				i--;
 
-				BinaryNode operandNode = new BinaryNode();
+				operandNode operandNode = new operandNode();
 				operandNode.setKey(operand.toString());
 				nodes.push(operandNode);
 			} else if (current == '(') {
@@ -143,5 +154,9 @@ public class BinaryTree {
 			nodes.push(createSubTree(operators.pop(), nodes.pop(), nodes.pop()));
 
 		return nodes.pop();
+	}
+
+	public float calculateExpressionTree(){
+		return root.visit();
 	}
 }

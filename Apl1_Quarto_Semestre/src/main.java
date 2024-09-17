@@ -1,5 +1,6 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.InputMismatchException;
+
 
 public class main {
 
@@ -11,11 +12,11 @@ public class main {
     Scanner scanner = new Scanner(System.in);
     String choice = "";
 
-    BinaryTree Arvore = new BinaryTree();
+    BinaryTree tree = new BinaryTree();
 
     String input = "";
     do {
-      System.out.println(new String(new char[55]).replace("\0", "="));
+      System.out.println("\n" + new String(new char[55]).replace("\0", "="));
       System.out.println("1.Entrada da expressão aritmética na notação infixa.");
       System.out.println("2.Criação da árvore binária de expressão aritmética.");
       System.out.println("3.Exibição da árvore binária de expressão aritmética.");
@@ -33,58 +34,94 @@ public class main {
             input = scanner.nextLine();
             input = input.replaceAll("\\s+", "");
 
-            for (int i = 0; i < input.length(); i++) {
-              char elem1 = input.charAt(i);
-              if (Character.isLetter(elem1)) {
-                input = "";
-                throw new InputMismatchException("Entrada inválida. Somente números e operadores são aceitos");
-              }
+            // Verifica se após a entrada, o input está vazio.
+            if (input.length() < 1)
+              throw new Exception("Entrada inválida. Expressão infixa não pode estar vazia.");
+            
 
-              if (isOperator(elem1)) {
-                char elem2 = (i + 1 < input.length()) ? input.charAt(i + 1) : '\0';
-                if (isOperator(elem2)) {
-                  input = "";
-                  throw new IllegalArgumentException("Entrada inválida. Duplo operador detectado.");
-                }
-              }
+            for (int i = 0; i < input.length(); i++) {
+              char aux = input.charAt(i);
+              char next = (i + 1 < input.length()) ? input.charAt(i + 1) : '\0';
+
+              // Verifica se o operador tem dois operandos
+              if (isOperator(input.charAt(0)))
+                throw new InputMismatchException("Entrada inválida. Expressão não pode começar com um operador");
+
+              if (isOperator(input.charAt(input.length()-1)))
+                throw new InputMismatchException("Entrada inválida. Expressão não pode terminar com um operador.");
+              
+              // Permite apenas, operadores matemáticos básicos, números e parênteses.
+              if (!String.valueOf(aux).matches("[.()-+*/\\d+]")) 
+                throw new InputMismatchException("Entrada inválida. Somente números e operadores (+, -, *, /) são aceitos. Use ponto para casa decimais.");
+              
+              // Verifica se há dois operadores em sequência.
+              if (isOperator(aux) && isOperator(next)) 
+                throw new IllegalArgumentException("Entrada inválida. Duplo operador detectado.");
+              
+              // Verifica se há um operador entre um número e uma abertura de parênteses 
+              if (String.valueOf(aux).matches("\\d+") && next == '(' )
+                throw new IllegalArgumentException("Entrada inválida. Deve existir um operador entre números e parênteses de abertura.");
+
+              // Verififca se há um operador entre o fechamento de um parênteses e um número
+              if (String.valueOf(aux).matches("(") && String.valueOf(next).matches("[0-9]"))
+                throw new IllegalArgumentException("Entrada inválida. Deve existir um operador entre fechamento de parênteses e um número");
+              
             }
             System.out.println("Expressão infixa aceita.");
-            choice = "";
-          } catch (Exception e) {
-            System.out.println(e.getMessage());
+            } catch (Exception e) {
+              input = "";
+              System.out.println(e.getMessage());
           }
+
+          choice = "";
           break;
 
         case "2":
           // Criação da Árvore binária
           try {
-           BinaryNode root = Arvore.buildTree(input);
-           Arvore.setRoot(root);
-           System.out.println("Árvore criada com sucesso.");
+            if (input.length() < 1)
+              throw new Exception("Expressão infixa não encontrada.");
+            
+            BinaryNode root = tree.buildTree(input);
+            tree.setRoot(root);
+            System.out.println("Árvore criada com sucesso.");
  
           } catch (Exception e) {
+            input = "";
             System.out.println(e.getMessage());
           }
           break;
 
         case "3":
-          
-          if (Arvore.isEmpty()) {
-            System.out.println("A árvore ainda não foi criada ou está vazia!");
-          } else {
+          try {
+            if (tree.isEmpty()) 
+             throw new Exception("A árvore ainda não foi criada ou está vazia!");
+
             System.out.println("Pré ordem: ");
-            Arvore.preOrderTraversal();
+            tree.preOrderTraversal();
             
             System.out.println("\n Em ordem: ");
-            Arvore.inOrderTraversal();
+            tree.inOrderTraversal();
             
             System.out.println("\nPós ordem: ");
-            Arvore.postOrderTraversal();
+            tree.postOrderTraversal();
+
+          } catch (Exception e) {
+            System.err.println(e.getMessage());
           }
+          
           break;
 
         case "4":
-          // TODO: Calcular a expressão na árvore
+          // Calcular a expressão na árvore
+          try {
+            if (tree.isEmpty())
+              throw new Exception("Operação inválida. Árvore vazia ou inexistente.");
+
+            System.out.println("Valor na árvore: " + tree.calculateExpressionTree());
+          } catch (Exception e) {
+            System.err.println(e.getMessage());
+          }
           break;
         case "5":
           System.out.println("Saindo...");

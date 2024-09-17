@@ -1,6 +1,6 @@
 /*
- Gabriel Alves de Freitas Spinola Sucupira - 10418133
- Enzo Benedetto Proença - 10418579
+ *	Gabriel Alves de Freitas Spinola Sucupira - 10418133
+ * Enzo Benedetto Proença - 10418579
  */
 
 public class BinaryNode {
@@ -127,13 +127,4 @@ public class BinaryNode {
 	public float visit() {
 		return Float.NaN;
 	}
-	// TODO: Função para visitar os valores
-	/*
-	 * public <T> visitNode() {
-	 * this.left.visitNode();
-	 * //parametro para o nó pai
-	 * this.right.visitNode();
-	 * }
-	 */
-
 }
