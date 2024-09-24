@@ -1,3 +1,8 @@
+/*
+Gabriel Alves de Freitas Spinola Sucupira - 10418133
+Enzo Benedetto Proença - 10418579
+*/
+
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.Stack;
@@ -64,12 +69,18 @@ public class main {
               if (isOperator(input.charAt(0)))
                 throw new InputMismatchException("Entrada inválida. Expressão não pode começar com um operador");
 
+              if(input.charAt(0) == '.')
+            	  throw new InputMismatchException("Entrada inválida. Não comece com marcador decimal.");
+              
               if (isOperator(input.charAt(input.length()-1)))
                 throw new InputMismatchException("Entrada inválida. Expressão não pode terminar com um operador.");
               
               // Permite apenas, operadores matemáticos básicos, números e parênteses.
               if (!String.valueOf(aux).matches("[.\\(\\)\\-\\+\\*\\/\\d+]")) 
                 throw new InputMismatchException("Entrada inválida. Somente números e operadores (+, -, *, /) são aceitos. Use ponto para casa decimais.");
+              
+              if(next == '.' && !String.valueOf(aux).matches("\\d"))
+                  throw new InputMismatchException("Entrada inválida. Números decimais devem ter sua parte inteira explicitamente definida. ");
               
               // Verifica se há dois operadores em sequência.
               if (isOperator(aux) && isOperator(next)) 
