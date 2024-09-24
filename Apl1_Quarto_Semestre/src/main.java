@@ -68,7 +68,7 @@ public class main {
                 throw new InputMismatchException("Entrada inválida. Expressão não pode terminar com um operador.");
               
               // Permite apenas, operadores matemáticos básicos, números e parênteses.
-              if (!String.valueOf(aux).matches("[.\\(\\)-+*/\\d+]")) 
+              if (!String.valueOf(aux).matches("[.\\(\\)\\-\\+\\*\\/\\d+]")) 
                 throw new InputMismatchException("Entrada inválida. Somente números e operadores (+, -, *, /) são aceitos. Use ponto para casa decimais.");
               
               // Verifica se há dois operadores em sequência.
